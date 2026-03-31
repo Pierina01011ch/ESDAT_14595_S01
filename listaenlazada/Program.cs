@@ -20,5 +20,6 @@ Locomotora b = new Locomotora();
 b.AgregaIni(5);
 b.AgregaIni(3);
 b.AgregaIni(10);
+b.AgregaFin(1);
 b.Imprime();
 
