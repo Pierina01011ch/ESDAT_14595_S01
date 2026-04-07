@@ -36,6 +36,9 @@ namespace listaenlazada{
             }
         }
 
+        public void EliminaSegundo() {
+
+        }
         public void Imprime(){
             Vagon tmp = Primero;
             while (tmp != null){
