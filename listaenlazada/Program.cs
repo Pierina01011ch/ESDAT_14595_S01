@@ -23,7 +23,12 @@ b.AgregaIni(1);
 b.AgregaFin(7);
 b.EliminaSegundo();
 b.Imprime();
+
+Console.WriteLine(b.Get(0));
+Console.WriteLine($"hay {b.Length()} elementos");
+/*
 Console.WriteLine("Ingrese valor a buscar");
 int vbus = Convert.ToInt32(Console.ReadLine());
 Console.WriteLine(b.BuscaValor(vbus) ? "Encontrado" : "no esta");
+*/
 

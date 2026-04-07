@@ -61,6 +61,29 @@ namespace listaenlazada{
             return false;
         }
 
+        public int Get(int idx) {
+            Vagon tmp = Primero;
+            int indice = 0;
+            while (tmp != null) {
+                if (indice == idx) {
+                    return tmp.Dato;
+                }
+                indice++;
+                tmp = tmp.Sig;
+            }
+            return int.MinValue;
+        }
+
+        public int Length() {
+            Vagon tmp = Primero;
+            int contar = 0;
+            while (tmp != null) {
+                contar++;
+                tmp = tmp.Sig;
+            }
+            return contar;
+        }
+
         public void Imprime(){
             Vagon tmp = Primero;
             while (tmp != null){
