@@ -5,53 +5,54 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace listaenlazada{
-    internal class Locomotora{
-        private Vagon Primero {  get; set; }
+    internal class LED{
+        private NodoD Primero {  get; set; }
         
         public void AgregaIni(int valor) {
             //agregar un dato al inicio
-            Vagon nuevo = new Vagon(valor);
+            NodoD nuevo = new NodoD(valor);
             if (this.Primero == null) {
                 this.Primero = nuevo;
             } else {
-                Vagon prim = this.Primero;
+                NodoD prim = this.Primero;
                 nuevo.Sig = prim;
+                this.Primero.Ant = nuevo;
                 this.Primero = nuevo;
             }
         }
 
         public void AgregaFin(int valor) {
             //agregar un dato al inicio
-            Vagon nuevo = new Vagon(valor);
+            NodoD nuevo = new NodoD(valor);
             if (this.Primero == null) {
                 this.Primero = nuevo;
-            }else if (this.Primero.Sig == null) {
-                this.Primero.Sig = nuevo;
             } else {
-                Vagon ultimo = Primero;
+                NodoD ultimo = Primero;
                 while (ultimo.Sig != null) {
                     ultimo = ultimo.Sig;
                 }
                 ultimo.Sig = nuevo;
+                nuevo.Ant = ultimo;
             }
         }
 
         public void EliminaSegundo() {
-            //1)sin vagones o 1 vagon no hacer nada
-            if (this.Primero != null) {
-                if (this.Primero.Sig != null) {
-                    //2)el sig del 2do lo conecto al primero
-                    Vagon segundo = this.Primero.Sig;
-                    Vagon tercero = segundo.Sig;
-                    this.Primero.Sig = tercero;
-                    //3) sig del 2do = null
-                    segundo.Sig = null;
+            
+            if (this.Primero != null && this.Primero.Sig!=null) {
+                NodoD segundo = this.Primero.Sig;
+                NodoD tercero = segundo.Sig;
+                this.Primero.Sig = tercero;
+                if (tercero!= null) {
+                    tercero.Ant = this.Primero;
                 }
+
+                segundo.Sig = null;
+                segundo.Ant = null;
             }
         }
 
         public bool BuscaValor(int valorBuscar) {
-            Vagon tmp = Primero;
+            NodoD tmp = Primero;
             while (tmp != null) {
                 if (tmp.Dato == valorBuscar) {
                     return true;
@@ -62,7 +63,7 @@ namespace listaenlazada{
         }
 
         public int Get(int idx) {
-            Vagon tmp = Primero;
+            NodoD tmp = Primero;
             int indice = 0;
             while (tmp != null) {
                 if (indice == idx) {
@@ -75,7 +76,7 @@ namespace listaenlazada{
         }
 
         public int Length() {
-            Vagon tmp = Primero;
+            NodoD tmp = Primero;
             int contar = 0;
             while (tmp != null) {
                 contar++;
@@ -84,35 +85,43 @@ namespace listaenlazada{
             return contar;
         }
 
-        public void MerclaAlFinal(Locomotora listFin) {
-            //los elementos de listFin los agregaran al final de la lista actual
-            int cant = listFin.Length();
-            for (int i = 0; i <= cant; i++) {
-                this.AgregaFin(listFin.Get(i));
-            }
-        }
-        public void MerclaAlFinal2(Locomotora listFin) {
-            //los elementos de listFin los agregaran al final de la lista actual
-            Vagon PriVagB = listFin.Primero;
-            //llegas al ultimo
+        public void MerclaAlFinal2(LED listFin) {
+
+            if (listFin.Primero == null) return;
+
             if (this.Primero == null) {
-                this.Primero = PriVagB;
+                this.Primero = listFin.Primero;
             } else {
-                Vagon tmp = Primero;
+                NodoD tmp = Primero;
                 while (tmp.Sig != null) {
                     tmp = tmp.Sig;
                 }
-                tmp.Sig = PriVagB;
+                tmp.Sig = listFin.Primero;
+                listFin.Primero.Ant = tmp;
             }
         }
 
         public void Imprime(){
-            Vagon tmp = Primero;
+            NodoD tmp = Primero;
             while (tmp != null){
                 Console.WriteLine($"{tmp.Dato}, ");
                 tmp = tmp.Sig;
             }
-            
+        }
+
+        public void ImprimeInversa() {
+            NodoD tmp = Primero;
+            if (tmp == null) return;
+            //último vagón
+            while(tmp.Sig!=null) {
+                tmp = tmp.Sig;
+            }
+
+            //recorrido inverso
+            while(tmp!=null) {
+                Console.WriteLine($"{tmp.Dato}, ");
+                tmp = tmp.Ant;
+            }
         }
     }
 }

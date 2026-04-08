@@ -37,17 +37,21 @@ int vbus = Convert.ToInt32(Console.ReadLine());
 Console.WriteLine(b.BuscaValor(vbus) ? "Encontrado" : "no esta");
 */
 
-Locomotora a = new Locomotora();
+LED a = new LED();
 a.AgregaFin(1);
 a.AgregaFin(3);
 a.AgregaFin(5);
 
-Locomotora b = new Locomotora();
+LED b = new LED();
 b.AgregaFin(2);
 b.AgregaFin(4);
 b.AgregaFin(6);
 
+/*
 a.Imprime();    //1,3,5
 Console.WriteLine();
+*/
 a.MerclaAlFinal2(b);
 a.Imprime();    //1,3,5,2,4,6
+Console.WriteLine();
+a.ImprimeInversa(); //6,4,2,5,3,1
